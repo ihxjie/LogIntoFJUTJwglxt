@@ -1,5 +1,4 @@
 # 登录到FJUT教务管理系统
-Log Into FJUT Jwglxt
 ## 需要FJUT校园网
 ### QcxConnect
 可以查到扣分详情（qcx.fjut.edu.cn的前端没有显示，可以看到的信息更多）
