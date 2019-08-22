@@ -7,4 +7,5 @@
 ### Connect.webvpn_link()
 借助webvpn间接访问到教务管理系统，速度慢
 ### 微信的接口
-微信接口可能需要证书，正在研究中(浏览器可以直接访问 jwxtwx.fjut.edu.cn/jwglxt )
+#### 浏览器可以直接访问 https://jwxtwx.fjut.edu.cn/jwglxt
+微信的接口应该是目前外网访问教务系统最快的方法了
