@@ -3,6 +3,7 @@ package l;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import jdk.swing.interop.SwingInterOpUtils;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -17,7 +18,9 @@ public class Connect {
     private String url_jwxt;
     private String url_jwxt_webvpnNetwork = "https://jwxt-443.webvpn.fjut.edu.cn";//webvpn访问
     private String url_jwxt_campusNetwork = "http://jwxt.fjut.edu.cn";//校园网访问
-    //private String url_jwxt_weChatNetwork = "http://jwxtwx.fjut.edu.cn";//微信接口
+    private String url_jwxt_weChatNetwork = "https://jwxtwx.fjut.edu.cn";//微信接口
+
+
     private String modulus,exponent,authenticity_token,csrftoken;
     private String user,password;
 
@@ -31,7 +34,8 @@ public class Connect {
         this.password = password;
     }
     public Map<String,String> link(){
-        url_jwxt = url_jwxt_campusNetwork;
+        //url_jwxt = url_jwxt_campusNetwork;
+        url_jwxt = url_jwxt_weChatNetwork;
         getCsrftoken();
         getRSApublickey();
         login();
@@ -95,6 +99,7 @@ public class Connect {
         connection = Jsoup.connect(url_jwxt+"/jwglxt/xtgl/login_slogin.html?language=zh_CN&_t="+new Date().getTime());
         connection.header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.142 Safari/537.36");
         try{
+            SslUtils.ignoreSsl();
             response = connection.cookies(cookies).ignoreContentType(true).execute();
 
         }catch (Exception e){
@@ -125,7 +130,7 @@ public class Connect {
     }
     public void login() {
 
-        connection = Jsoup.connect(url_jwxt+ "/jwglxt/xtgl/login_slogin.html");
+        connection = Jsoup.connect(url_jwxt+ "/jwglxt/xtgl/login_slogin.html?time=" + new Date().getTime());
         connection.header("Content-Type","application/x-www-form-urlencoded;charset=utf-8");
         connection.header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.142 Safari/537.36");
 
@@ -145,6 +150,7 @@ public class Connect {
             System.out.println("LOGIN SUCCESS");
         }else{
             System.out.println(document.getElementById("tips").text());
+            System.out.println("FAILED");
         }
     }
     public Map<String,String> getCookies(){

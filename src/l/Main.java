@@ -7,9 +7,9 @@ public class Main {
 		String password = "";
 
 		Connect connect = new Connect(user,password);
-		connect.webvpn_link();
+		//connect.webvpn_link();
+		connect.link();
 		connect.getCourse();
-		//connect.link();
 
 	}
 
